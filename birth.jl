@@ -10,17 +10,12 @@ function countBirths(pop::People)
             number_of_births += countGenerationBirths(pop.generations[i])
         end
     end
-    
     return number_of_births
 end
 
 function createGeneration(total::Int64)
-    number_of_females = 0
-    for i in 1:total
-        if rand() < 0.50
-            number_of_females += 1       
-        end
-    end
+
+    number_of_females = convert(Int64,round(0.5*total))
     
     return Generation(0,total,total - number_of_females, number_of_females)
 end
@@ -35,10 +30,17 @@ end
 
 function countGenerationBirths(generation::Generation)
     births = 0
-    for i in 1:generation.females
-        if rand() < chanceOfBirth
-            births += 1
+    
+    if generation.females*chanceOfBirth < 0.5
+        for i in 1:generation.females
+            if rand() < chanceOfBirth
+                births += 1
+            end
         end
+    else
+        births = chanceOfBirth*generation.females
+        births = convert(Int64,round(births))
     end
+    
     return births
 end

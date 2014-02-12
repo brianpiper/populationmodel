@@ -16,6 +16,7 @@ population.generations[1] = first_generation
 for year in startYear:endYear
     # Count the number of births
     number_of_births = countBirths(population)
+    println("Number of births in year $year = $number_of_births")
     
     # Create a generation with that number of births
     new_generation = createGeneration(number_of_births)

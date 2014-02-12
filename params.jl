@@ -4,11 +4,11 @@ export maxBreedingAge, minBreedingAge, chanceOfBirth, deathAge, startYear, endYe
 
 maxBreedingAge = 43
 minBreedingAge = 15
-chanceOfBirth = 0.03
+chanceOfBirth = 0.15
 
 deathAge = 65
 
 startYear = 0
-endYear = 20
+endYear = 4000
 
 end
