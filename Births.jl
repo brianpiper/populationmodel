@@ -1,7 +1,7 @@
-include("params.jl")
-using Parameters
 
-function countBirths(pop::People)
+export countBirths
+
+function countBirths(pop)
     number_of_births = 0
     
     for i in 1:length(pop.generations)
@@ -13,22 +13,14 @@ function countBirths(pop::People)
     return number_of_births
 end
 
-function createGeneration(total::Int64)
-
-    number_of_females = convert(Int64,round(0.5*total))
-    
-    return Generation(0,total,total - number_of_females, number_of_females)
-end
-
-
-function ableToBreed(generation::Generation)
+function ableToBreed(generation)
     if generation.age >= minBreedingAge && generation.age <= maxBreedingAge
         return true
     end
     return false
 end
 
-function countGenerationBirths(generation::Generation)
+function countGenerationBirths(generation)
     births = 0
     
     if generation.females*chanceOfBirth < 0.5

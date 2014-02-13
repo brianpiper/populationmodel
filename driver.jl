@@ -1,12 +1,13 @@
 
-include("params.jl")
-include("population.jl")
-include("birth.jl")
-include("death.jl")
+include("Parameters.jl")
+import PopulationModel
+using PopulationModel
 
-using Parameters
 # Create initial population
-first_generation = Generation(20,2,1,1)
+first_generation = Generation(initialPopulationAge,
+                                              initialPopulationSize,
+                                              initialMales,
+                                              initialFemales)
 population = People()
 
 population.generations[1] = first_generation
@@ -19,7 +20,7 @@ for year in startYear:endYear
     println("Number of births in year $year = $number_of_births")
     
     # Create a generation with that number of births
-    new_generation = createGeneration(number_of_births)
+    new_generation = Generation(number_of_births)
     
     # Add generation to the number of people
     push!(population.generations, new_generation)
@@ -27,10 +28,8 @@ for year in startYear:endYear
     # Age the population
     agePeople(population)
     
-    # Count the number of deaths in each year
+    # Count and remove the dead from each generation
     countDead(population)
-    
-    # Remove deaths from each generation
     
     # Remove empty generations from the population
     removeEmptyGeneration(population)

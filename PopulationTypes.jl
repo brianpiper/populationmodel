@@ -1,4 +1,4 @@
-
+export Generation, People
 
 type Generation
     age :: Int64
@@ -10,7 +10,11 @@ type Generation
         return new(age, size, males, females)
     end
     
-    
+    function Generation(total::Int64)
+        number_of_females = convert(Int64,round(0.5*total))
+        
+        return new(0,total, total - number_of_females, number_of_females)
+    end
 end
 
 type People
@@ -21,23 +25,4 @@ type People
         return new(Array(Generation,1))
     end
     
-end
-
-function agePeople(pop::People)
-    
-    for i in 1:length(pop.generations)
-        pop.generations[i].age += 1
-    end
-    
-end
-
-
-function countPopulation(pop::People)
-
-    world_population = 0
-    for i in 1:length(pop.generations)
-        world_population += pop.generations[i].size
-    end
-
-    return world_population
 end
