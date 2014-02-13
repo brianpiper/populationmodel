@@ -2,7 +2,7 @@
 export countDead, removeEmptyGeneration
 
 function countDead(population::People)
-    
+    total_deaths = 0
     for i in 1:length(population.generations)
         if population.generations[i].age > deathAge
             population.generations[i].males = 0
@@ -10,10 +10,11 @@ function countDead(population::People)
             population.generations[i].size = 0
         else
             number_of_deaths = countGenerationDeaths(population.generations[i])
+            total_deaths += number_of_deaths
             distributeDeath(population.generations[i], number_of_deaths)
         end
     end
-
+    total_deaths
 end
 
 function distributeDeath(generation::Generation, total::Int64)
